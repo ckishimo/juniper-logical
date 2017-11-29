@@ -78,6 +78,7 @@ class JunOSDriver(NetworkDriver):
         if optional_args is None:
             optional_args = {}
 
+        self.logical_systems = optional_args.get('logical_systems', None)
         self.config_lock = optional_args.get('config_lock', False)
         self.port = optional_args.get('port', 22)
         self.key_file = optional_args.get('key_file', None)
