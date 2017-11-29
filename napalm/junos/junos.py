@@ -1355,7 +1355,10 @@ class JunOSDriver(NetworkDriver):
         else:
             mac_table = junos_views.junos_mac_address_table(self.device)
 
-        mac_table.get()
+        if self.logical_systems is None:
+            mac_table.get()
+        else:
+            mac_table.get(logical_system=self.logical_systems)
         mac_table_items = mac_table.items()
 
         default_values = {
