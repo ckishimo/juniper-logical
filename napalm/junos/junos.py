@@ -1197,7 +1197,10 @@ class JunOSDriver(NetworkDriver):
         arp_table = []
 
         arp_table_raw = junos_views.junos_arp_table(self.device)
-        arp_table_raw.get()
+        if self.logical_systems is None:
+            arp_table_raw.get()
+        else:
+            arp_table_raw.get(logical_system=self.logical_systems)
         arp_table_items = arp_table_raw.items()
 
         for arp_table_entry in arp_table_items:
