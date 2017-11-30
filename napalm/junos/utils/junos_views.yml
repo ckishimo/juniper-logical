@@ -45,6 +45,23 @@ junos_ospf_neighbors_view:
     options: options
 
 ####
+#### MPLS tables
+####
+junos_mpls_rsvp_lsp_table:
+  rpc: get-rsvp-session-information
+  item: rsvp-session-data
+  key: rsvp-session/name
+  view: junos_mpls_rsvp_lsp_view
+
+junos_mpls_rsvp_lsp_view:
+  fields:
+    type: session-type
+    destination-address: rsvp-session/destination-address
+    source-address: rsvp-session/source-address
+    lsp-state: rsvp-session/lsp-state
+    name: rsvp-session/name
+
+####
 #### BGP tables
 ####
 
