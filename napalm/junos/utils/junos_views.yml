@@ -27,6 +27,8 @@ junos_iface_view:
 ####
 junos_ospf_neighbors_table:
   rpc: get-ospf-neighbor-information
+  args:
+    detail: True
   item: ospf-neighbor
   # Key is mandatory here
   key: neighbor-address
@@ -38,6 +40,9 @@ junos_ospf_neighbors_view:
     neighbor-address: neighbor-address
     state: ospf-neighbor-state
     priority: neighbor-priority
+    interface: interface-name
+    area: ospf-area
+    options: options
 
 ####
 #### BGP tables
