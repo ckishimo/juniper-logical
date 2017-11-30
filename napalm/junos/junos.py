@@ -1184,7 +1184,7 @@ class JunOSDriver(NetworkDriver):
         return bgp_neighbors
 
     def get_vlan_table(self):
-        """Return the VLANRP table."""
+        """Return the VLAN table."""
 
         vlan_table = []
 
