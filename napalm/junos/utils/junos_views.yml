@@ -23,6 +23,24 @@ junos_iface_view:
     mac_address: current-physical-address
 
 ####
+#### VLAN tables
+####
+junos_vlan_table:
+  rpc: get-vlan-information
+  args:
+    detail: True
+  item: l2ng-l2ald-vlan-instance-group
+  key: l2ng-l2rtb-vlan-name
+  view: junos_vlan_view
+
+junos_vlan_view:
+  fields:
+    name: l2ng-l2rtb-vlan-name
+    tag: l2ng-l2rtb-vlan-tag
+    mac-aging: l2ng-l2rtb-mac-aging-time
+    state: l2ng-l2rtb-instance-state
+
+####
 #### OSPF tables
 ####
 junos_ospf_neighbors_table:

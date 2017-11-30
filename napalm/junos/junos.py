@@ -1183,6 +1183,27 @@ class JunOSDriver(NetworkDriver):
         #     _bgp_iter_core(neighbor_data)
         return bgp_neighbors
 
+    def get_vlan_table(self):
+        """Return the VLANRP table."""
+
+        vlan_table = []
+
+        vlan_table_raw = junos_views.junos_vlan_table(self.device)
+        if self.logical_systems is None:
+            vlan_table_raw.get()
+        else:
+            # FIXME: RPC timeout if logical-system is not defined in the router config
+            vlan_table_raw.get(logical_system=self.logical_systems)
+        vlan_table_items = vlan_table_raw.items()
+
+        for vlan_table_entry in vlan_table_items:
+            vlan_entry = {
+                elem[0]: elem[1] for elem in vlan_table_entry[1]
+            }
+            vlan_table.append(vlan_entry)
+
+        return vlan_table
+
     def get_arp_table(self):
         """Return the ARP table."""
         # could use ArpTable
