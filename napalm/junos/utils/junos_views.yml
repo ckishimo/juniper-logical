@@ -23,6 +23,23 @@ junos_iface_view:
     mac_address: current-physical-address
 
 ####
+#### OSPF tables
+####
+junos_ospf_neighbors_table:
+  rpc: get-ospf-neighbor-information
+  item: ospf-neighbor
+  # Key is mandatory here
+  key: neighbor-address
+  view: junos_ospf_neighbors_view
+
+junos_ospf_neighbors_view:
+  fields:
+    neighbor-id: neighbor-id
+    neighbor-address: neighbor-address
+    state: ospf-neighbor-state
+    priority: neighbor-priority
+
+####
 #### BGP tables
 ####
 
