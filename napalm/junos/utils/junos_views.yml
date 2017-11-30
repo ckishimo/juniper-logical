@@ -40,6 +40,21 @@ junos_vlan_view:
     mac-aging: l2ng-l2rtb-mac-aging-time
     state: l2ng-l2rtb-instance-state
 
+junos_vlan_members_table:
+  rpc: get-vlan-information
+  args:
+    detail: True
+  args_key: vlan-name
+  item: l2ng-l2ald-vlan-instance-group/l2ng-l2rtb-vlan-member
+  key: l2ng-l2rtb-vlan-member-interface
+  view: junos_vlan_member_view
+
+junos_vlan_member_view:
+  fields:
+    interface: l2ng-l2rtb-vlan-member-interface
+    mode: l2ng-l2rtb-vlan-member-interface-mode
+    tag: l2ng-l2rtb-vlan-member-tagness
+
 ####
 #### OSPF tables
 ####

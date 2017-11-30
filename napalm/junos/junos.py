@@ -1204,6 +1204,35 @@ class JunOSDriver(NetworkDriver):
 
         return vlan_table
 
+    def get_vlan_table_detail(self):
+        """Return the VLAN table. Now for each vlan include the list of interfaces TAGGED/UNTAGGED"""
+
+        vlan_table = []
+
+        vlan_table_raw = junos_views.junos_vlan_table(self.device)
+        if self.logical_systems is None:
+            vlan_table_raw.get()
+        else:
+            # FIXME: RPC timeout if logical-system is not defined in the router config
+            vlan_table_raw.get(logical_system=self.logical_systems)
+
+        vlan_table_items = vlan_table_raw.items()
+        for vlan_table_entry in vlan_table_items:
+            vlan_entry = {
+                elem[0]: elem[1] for elem in vlan_table_entry[1]
+            }
+            members = junos_views.junos_vlan_members_table(self.device)
+            members.get(vlan_name=vlan_table_entry[0])
+            vlan_members_items = members.items()
+            vlan_entry['members'] = []
+            for member in vlan_members_items:
+                # FIXME: Need to parse member tuple
+                vlan_entry['members'].append(member)
+
+            vlan_table.append(vlan_entry)
+
+        return vlan_table
+
     def get_arp_table(self):
         """Return the ARP table."""
         # could use ArpTable
