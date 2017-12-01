@@ -314,6 +314,10 @@ junos_bgp_config_table:
   get: protocols/bgp/group
   view: junos_bgp_config_view
 
+junos_bgp_logical_systems_config_table:
+  get: protocols/bgp/group
+  view: junos_bgp_config_view
+
 junos_bgp_config_group_table:
   get: protocols/bgp/group
   view: junos_bgp_config_view

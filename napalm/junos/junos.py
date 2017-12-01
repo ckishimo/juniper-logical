@@ -921,7 +921,10 @@ class JunOSDriver(NetworkDriver):
             bgp = junos_views.junos_bgp_config_group_table(self.device)
             bgp.get(group=group)
         else:
-            bgp = junos_views.junos_bgp_config_table(self.device)
+            if self.logical_systems is None:
+                bgp = junos_views.junos_bgp_config_table(self.device)
+            else:
+                bgp = junos_views.junos_bgp_logical_systems_config_table(self.device)
             bgp.get()
             neighbor = ''  # if no group is set, no neighbor should be set either
         bgp_items = bgp.items()
