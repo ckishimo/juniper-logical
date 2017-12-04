@@ -35,10 +35,9 @@ junos_vlan_table:
 
 junos_vlan_view:
   fields:
-    name: l2ng-l2rtb-vlan-name
-    tag: l2ng-l2rtb-vlan-tag
-    mac-aging: l2ng-l2rtb-mac-aging-time
-    state: l2ng-l2rtb-instance-state
+    name: {l2ng-l2rtb-vlan-name: unicode }
+    vlan_id: { l2ng-l2rtb-vlan-tag: int }
+    vlan_state: l2ng-l2rtb-instance-state
 
 junos_vlan_members_table:
   rpc: get-vlan-information
@@ -52,8 +51,8 @@ junos_vlan_members_table:
 junos_vlan_member_view:
   fields:
     interface: l2ng-l2rtb-vlan-member-interface
-    mode: l2ng-l2rtb-vlan-member-interface-mode
-    tag: l2ng-l2rtb-vlan-member-tagness
+    # mode: l2ng-l2rtb-vlan-member-interface-mode
+    # tag: l2ng-l2rtb-vlan-member-tagness
 
 ####
 #### OSPF tables
@@ -315,7 +314,7 @@ junos_bgp_config_table:
   view: junos_bgp_config_view
 
 junos_bgp_logical_systems_config_table:
-  get: protocols/bgp/group
+  get: logical-systems/protocols/bgp/group
   view: junos_bgp_config_view
 
 junos_bgp_config_group_table:

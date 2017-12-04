@@ -1203,6 +1203,14 @@ class JunOSDriver(NetworkDriver):
             vlan_entry = {
                 elem[0]: elem[1] for elem in vlan_table_entry[1]
             }
+            members = junos_views.junos_vlan_members_table(self.device)
+            members.get(vlan_name=vlan_table_entry[0])
+            vlan_members_items = members.items()
+            vlan_entry['vlan_int'] = []
+            for member in vlan_members_items:
+                # interfaces are reported as "ge-2/0/8.0*", need to remove last char
+                vlan_entry['vlan_int'].append(member[0][:-1])
+
             vlan_table.append(vlan_entry)
 
         return vlan_table
