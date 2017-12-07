@@ -51,7 +51,7 @@ junos_vlan_members_table:
 junos_vlan_member_view:
   fields:
     interface: l2ng-l2rtb-vlan-member-interface
-    # mode: l2ng-l2rtb-vlan-member-interface-mode
+    interface-mode: l2ng-l2rtb-vlan-member-interface-mode
     # tag: l2ng-l2rtb-vlan-member-tagness
 
 ####
