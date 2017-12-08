@@ -111,6 +111,7 @@ junos_bgp_uptime_table:
   rpc: get-bgp-summary-information
   args:
     instance: ''
+    logical_system: ''
   item: bgp-peer
   key: peer-address
   view: junos_bgp_uptime_view
