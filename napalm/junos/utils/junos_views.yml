@@ -786,6 +786,12 @@ junos_nw_instances_table:
   args_key:
     name
 
+junos_logical_systems_nw_instances_table:
+  get: logical-systems/routing-instances/instance
+  view: junos_nw_instances_view
+  args_key:
+    name
+
 junos_nw_instances_view:
   fields:
     instance_type: {instance-type: unicode}
