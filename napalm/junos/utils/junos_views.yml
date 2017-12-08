@@ -620,6 +620,7 @@ junos_protocol_route_table:
   args_key:
     destination
     protocol
+    logical_system
   item: route-table/rt/rt-entry/nh
   key: via
   view: junos_route_table_view
