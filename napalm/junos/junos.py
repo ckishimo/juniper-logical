@@ -929,10 +929,11 @@ class JunOSDriver(NetworkDriver):
         bgp_config = {}
 
         if group:
-            bgp = junos_views.junos_bgp_config_group_table(self.device)
             if self.logical_systems is None:
+                bgp = junos_views.junos_bgp_config_group_table(self.device)
                 bgp.get(group=group)
             else:
+                bgp = junos_views.junos_bgp_logical_systems_config_group_table(self.device)
                 bgp.get(group=group, logical_system=self.logical_systems)
         else:
             if self.logical_systems is None:
