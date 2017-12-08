@@ -930,7 +930,10 @@ class JunOSDriver(NetworkDriver):
 
         if group:
             bgp = junos_views.junos_bgp_config_group_table(self.device)
-            bgp.get(group=group)
+            if self.logical_systems is None:
+                bgp.get(group=group)
+            else:
+                bgp.get(group=group, logical_system=self.logical_systems)
         else:
             if self.logical_systems is None:
                 bgp = junos_views.junos_bgp_config_table(self.device)
@@ -1184,11 +1187,20 @@ class JunOSDriver(NetworkDriver):
 
         # if old_junos:
         instances = junos_views.junos_route_instance_table(self.device)
-        for instance, instance_data in instances.get().items():
+        if self.logical_systems is not None:
+            instances_table = instances.get(logical_system=self.logical_systems).items()
+        else:
+            instances_table = instances.get().items()
+
+        for instance, instance_data in instances_table:
             if instance.startswith('__'):
                 # junos internal instances
                 continue
-            neighbor_data = bgp_neighbors_table.get(instance=instance,
+            if self.logical_systems is None:
+                neighbor_data = bgp_neighbors_table.get(instance=instance,
+                                                    neighbor_address=str(neighbor_address)).items()
+            else:
+                neighbor_data = bgp_neighbors_table.get(instance=instance,logical_system=self.logical_systems,
                                                     neighbor_address=str(neighbor_address)).items()
             _bgp_iter_core(neighbor_data, instance=instance)
         # else:
